@@ -12,18 +12,31 @@ def local():
     env.password = 'vagrant'
     env.environment = 'local'
 
-# check the environment and running the corresponding function
+# check the environment and running the corresponding deploy function
 def deploy():
     """ deploy function """
     if env.environment not in ("local", "test"):
-        print( red('Please specify a correct environment from ("local", "test").') )
+        print( red('Please specify a correct environment from ("local", "test") and running command such as `fab local deploy`.') )
     else:
         # exec the specify environment install function 
-        globals()["install_{0}_environment".format(env.environment)]()
+        globals()["deploy_{0}_environment".format(env.environment)]()
 
 
-def install_local_environment():
+def deploy_local_environment():
     run('ls -al')
 
-def install_test_environment():
+def deploy_test_environment():
     print('local install')
+
+
+def sync_code():
+    """ sync your code """
+    if env.environment not in ("local", "test"):
+        print( red('Please specify a correct environment from ("local", "test") and running command such as `fab local sync_code`.') )
+    else:
+        # exec the specify environment install function 
+        globals()["sync_{0}_code".format(env.environment)]()
+
+
+def sync_local_code():
+    print('sync local code')
